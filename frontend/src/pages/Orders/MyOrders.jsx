@@ -1,0 +1,94 @@
+import React, { useContext, useState, useEffect } from 'react'
+import styles from "./myOrder.module.css"
+import { StoreContext } from '../../context/StoreContext'
+import axios from 'axios'
+import { assets } from "../../assets/assets";
+
+const MyOrders = () => {
+
+    const { URl, token } = useContext(StoreContext)
+    const [data, setData] = useState([]);
+
+    const fetchOrders = async () => {
+        try {
+            const response = await axios.post(
+                URl + "/api/order/userorders",
+                {},
+                { headers: { token } }
+            )
+            setData(response.data.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        if (token) {
+            fetchOrders()
+        }
+    }, [token])
+
+    return (
+        <div className={styles.myorders}>
+            <h2>My Orders</h2>
+
+            <div className={styles.container}>
+
+                {data.map((order, index) => {
+
+                    return (
+                        <div key={index} className={styles.myordersOrder}>
+
+                            <img src={assets.parcel_icon} alt="" />
+
+                            
+                            <p>
+                                {order.items.map((item, index) => {
+                                    return index === order.items.length - 1
+                                        ? `${item.name} x ${item.quantity}`
+                                        : `${item.name} x ${item.quantity}, `
+                                })}
+                            </p>
+
+                            
+                            <p>₹{order.amount}</p>
+
+                            
+                            <p>Items: {order.items.length}</p>
+
+                            
+                            <p>
+                                <span>&#x25cf;</span>{" "}
+                                <b>{order.status}</b>
+                            </p>
+
+                           
+                            <p>
+                                {order.paymentMethod === "cod"
+                                    ? " COD Order"
+                                    : " Online Paid"}
+                            </p>
+
+                            
+                            <p>
+                                {order.payment
+                                    ? " Paid"
+                                    : order.paymentMethod === "cod"
+                                        ? " Pay on Delivery"
+                                        : "Pending"}
+                            </p>
+
+                            <button onClick={fetchOrders}>
+                                Refresh
+                            </button>
+
+                        </div>
+                    )
+                })}
+
+            </div>
+        </div>
+    )
+}
+
+export default MyOrders
