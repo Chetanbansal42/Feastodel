@@ -21,7 +21,7 @@ const App = () => {
       try {
       
         const response = await axios.get(
-          "http://localhost:4000/api/test"
+          " https://feastodel-1.onrender.com"
         );
      
         console.log(response.data);
