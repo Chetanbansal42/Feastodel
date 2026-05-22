@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import Navbar from './components/Navbar/Navbar'
 import { Route, Routes } from 'react-router-dom'
-import Home from './Pages/Home/Home'
-import Cart from './Pages/Cart/Cart'
-import PlaceOrder from './Pages/PlaceOrder/PlaceOrder'
+import Home from './pages/Home/Home'
+import Cart from './pages/Cart/Cart'
+import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
 import Footer from './components/Footer/Footer'
 import LoginPopUp from './components/Login/LoginPopUp'
-import Verify from './Pages/Verify/Verify'
-import MyOrders from './Pages/Orders/MyOrders'
+import Verify from './pages/Verify/Verify'
+import MyOrders from './pages/Orders/MyOrders'
 import axios from "axios";
 import { useEffect } from "react";
 import FoodDisplay from './components/foodDisplay/FoodDisplay'
